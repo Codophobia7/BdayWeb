@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Happy Birthday! 🎉</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Blue gradient */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin: 30px 0;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+            animation: bounce 2s infinite;
+        }
+        p {
+            font-size: 1.3rem;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        img {
+            width: 80%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        .button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        #surprise-video {
+            display: none;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 700px;
+            aspect-ratio: 16 / 9;
+            border-radius: 15px;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #next-button {
+            display: none;
+            background-color: #2196F3;
+        }
+        .step {
+            margin-top: 20px;
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Happy Birthday, Deepti🥳! 🎉</h1>
+    <div class="container" id="birthday-container">
+        <p>✨ Today is your special day, and you deserve all the happiness in the world! ✨</p>
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXdodGltMHdxYnQ3eXIxNWIwamw1ZW5hb3hsdHVsa2o5MDQyeWlxZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KJQebKqWXxBzr7YM82/giphy.gif" alt="Birthday Celebration">
+        <p>🎂 Many many happy returns of the day 🥳🎉 may all ur dreams come true, stay blessed n always keep smiling😇✌💯💯💯</p>
+        <button class="button" id="surprise-button" onclick="revealSurprise()">Click Here for a Surprise 🎁</button>
+        <video id="surprise-video" controls>
+            <source src="apo atutu.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button class="button" id="next-button" onclick="goToNext()">Next</button>
+    </div>
+
+    <div class="container" id="math-game-container" style="display:none;">
+        <p>Let's play a fun game to reveal your age!</p>
+        <div class="step active" id="step1">
+            <p>Choose a small number:</p>
+            <button class="button" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step2">
+            <p>Multiply your number by 2.</p>
+            <button class="button" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step3">
+            <p>Add 5 to the result.</p>
+            <button class="button" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step4">
+            <p>Now multiply the result by 50.</p>
+            <button class="button" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step5">
+            <p>Add 1774 to the result.</p>
+            <button class="button" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step6">
+            <p>Now subtract your year of birth.</p>
+            <div class="input-group">
+                <input type="number" id="birthYear" placeholder="Enter your year of birth" />
+            </div>
+            <button class="button" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step7">
+            <p>What's the final result?</p>
+            <div class="input-group">
+                <input type="number" id="finalResultInput" placeholder="Enter the result" />
+            </div>
+            <button class="button" onclick="revealAgeAndNumber()">Reveal Result</button>
+        </div>
+        <div class="step" id="result">
+            <p id="finalResult"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function revealSurprise() {
+            const surpriseVideo = document.getElementById("surprise-video");
+            const nextButton = document.getElementById("next-button");
+            surpriseVideo.style.display = "block";
+            surpriseVideo.play();
+            document.getElementById("surprise-button").style.display = "none";
+
+            surpriseVideo.onended = function() {
+                nextButton.style.display = "inline-block";
+            };
+        }
+
+        function goToNext() {
+            document.getElementById("birthday-container").style.display = "none";
+            document.getElementById("math-game-container").style.display = "block";
+        }
+
+        function nextStep() {
+            const currentElement = document.getElementById(`step${currentStep}`);
+            currentElement.classList.remove('active');
+            currentStep++;
+            document.getElementById(`step${currentStep}`).classList.add('active');
+        }
+
+        function revealAgeAndNumber() {
+            const finalResultInput = document.getElementById("finalResultInput").value;
+            if (isNaN(finalResultInput) || finalResultInput === "") {
+                alert("Please enter a valid result!");
+                return;
+            }
+
+            const finalResult = parseInt(finalResultInput, 10);
+            const age = finalResult % 100;
+            const chosenNumber = Math.floor(finalResult / 100);
+
+            document.getElementById("step7").classList.remove("active");
+            const resultElement = document.getElementById("result");
+            resultElement.classList.add("active");
+            document.getElementById("finalResult").innerHTML = `
+                🎉 Your chosen number is <strong>${chosenNumber}</strong>, 
+                and your age is <strong>${age}</strong>! 🥳
+<p style="font-size: 1rem; text-align: center; margin-top: 20px;">Note: You can't do the trick just by following the steps😅</p>
+
+            `;
+        }
+    </script>
+</body>
